@@ -7,7 +7,8 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Todo {
+model Credetials {
     id       String @id @default(dbgenerated("gen_random_uuid()"))
-    username String
+    username String @unique
+    password String
 }
