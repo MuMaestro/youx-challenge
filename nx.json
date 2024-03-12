@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/cypress/**/*",
@@ -53,7 +56,8 @@
         "serveTargetName": "serve",
         "previewTargetName": "preview"
       }
-    }
+    },
+    "@nxrocks/nx-spring-boot"
   ],
   "targetDefaults": {
     "@nx/eslint:lint": {
@@ -64,6 +68,9 @@
         "{workspaceRoot}/.eslintignore",
         "{workspaceRoot}/eslint.config.js"
       ]
+    },
+    "install": {
+      "cache": true
     }
   },
   "generators": {
