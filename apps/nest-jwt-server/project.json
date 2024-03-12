@@ -1,0 +1,24 @@
+{
+  "name": "nest-jwt-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/nest-jwt-server/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nest-jwt-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "nest-jwt-server:build:development"
+        },
+        "production": {
+          "buildTarget": "nest-jwt-server:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
