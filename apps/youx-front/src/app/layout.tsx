@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className='fixed inset-0'>{children}</body>
     </html>
   );
 }
