@@ -14,10 +14,8 @@ export class ProfileService {
 	}
 
 	private async encryptPassword(password: string) {
-		const salt = await genSalt(12);
-		return await hash(password, salt);
+		return await hash(password, Number(process.env.PASSWORD_SALT_ROUNDS));
 	}
-
 
 	async registerUser({ username, password }: LoginCredentials) {
 		return this.prisma.credetials.create({
@@ -28,13 +26,15 @@ export class ProfileService {
 		}).then((data) => ({ id: data.id, password, username }))
 	}
 
-	async checkCredentials(credetials: LoginCredentials) {
-		const user = await this.prisma.credetials.findUnique({
-			where: { username: credetials.username }
+	async getCredentialsOfUsername(username: string) {
+		return await this.prisma.credetials.findUnique({
+			where: { username: username }
 		})
-		return await this.decryptPassword(credetials.password, user.password) ? {
-			id: user.id,
-			username: user.username,
-		} : undefined;
+	}
+
+	async checkCredentials(credetials: LoginCredentials) {
+		const user = await this.getCredentialsOfUsername(credetials.username);
+		const isPasswordValid = await this.decryptPassword(credetials.password, user.password);
+		return isPasswordValid ? { id: user.id, username: user.username, } : undefined;
 	}
 }

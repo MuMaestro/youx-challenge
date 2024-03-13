@@ -1,22 +1,23 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { ProfileService } from './profile.service';
 
 @Controller('profile')
 export class ProfileController {
 
-	constructor(private readonly service: ProfileService) {}
+	constructor(private readonly service: ProfileService) { }
 
 	@Post('register')
 	async registerUser(@Body() body: Record<"username" | "password", string>) {
 		return await this.service.registerUser(body)
 	}
 
-	@Get('checkcredentials')
-	async check(@Body() body: Record<"username" | "password", string>) {
-		const user = await this.service.checkCredentials(body)
-		if(!user) {
-			throw new HttpException('Usário não encontrado/credenciais erradas', HttpStatus.NOT_FOUND)
-		}
-		return user;
+	@UseGuards(JwtAuthGuard)
+	@Get()
+	async getProfile(@Req() req) {
+		return await this.service
+			.getCredentialsOfUsername(req.user.username)
+			.then(({ id, username }) => ({ id, username }));
 	}
+
 }
