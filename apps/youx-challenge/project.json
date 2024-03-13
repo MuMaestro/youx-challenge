@@ -1,8 +1,0 @@
-{
-  "name": "youx-challenge",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/youx-challenge",
-  "projectType": "application",
-  "targets": {},
-  "tags": []
-}
