@@ -10,7 +10,7 @@ import { AppModule } from './app/app.module';
 import { PrismaClientExceptionFilter } from './app/prisma/prisma.filter';
 
 async function addListeningPort(app: INestApplication) {
-	const port = process.env.PORT || 3000;
+	const port = process.env.PORT || 3001;
 	await app.listen(port);
 	return port;
 }
@@ -27,9 +27,15 @@ function addPrismaExceptionFilter(app: INestApplication) {
 	return app;
 }
 
+function enableCors(app: INestApplication) {
+	app.enableCors();
+	return app;
+}
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   addPrismaExceptionFilter(app);
+  enableCors(app);
   const globalPrefix = addGlobalPrefix(app);
   const port = await addListeningPort(app);
   Logger.log(
