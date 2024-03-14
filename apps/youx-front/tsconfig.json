@@ -11,12 +11,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
+	"baseUrl": ".",
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "types": ["jest", "node"]
+    "types": [
+      "jest",
+      "node"
+    ],
+	"paths": {
+		"@/web-app/*": ["./src/*"],
+	}
   },
   "include": [
     "**/*.ts",
@@ -25,7 +32,13 @@
     "**/*.jsx",
     "../../apps/youx-front/.next/types/**/*.ts",
     "../../dist/apps/youx-front/.next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": [
+    "node_modules",
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
