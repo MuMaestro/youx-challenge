@@ -1,0 +1,1 @@
+type Anatomical<T, R> = T & R
